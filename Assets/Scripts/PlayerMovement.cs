@@ -15,13 +15,15 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator myAnimator;
-    CapsuleCollider2D myCapsuleCollider;
+    CapsuleCollider2D myBodyCollider;
+    BoxCollider2D myFeetCollider;
     float gravitySlaceAtStart;
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        myCapsuleCollider = GetComponent<CapsuleCollider2D>();
+        myBodyCollider = GetComponent<CapsuleCollider2D>();
+        myFeetCollider = GetComponent<BoxCollider2D>();
         gravitySlaceAtStart = myRigidbody.gravityScale;
     }
 
@@ -40,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnJump(InputValue value) //ziplamayi saglar 
     {
-        if (!myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) //platformTileMap e bir layer verdik Ground platforma deyip degmedigine bu kod sayesinde alabiliyoruz 
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) //platformTileMap e bir layer verdik Ground platforma deyip degmedigine bu kod sayesinde alabiliyoruz 
                                                                               //eger Ground a degiyorsa buraya girmez ve ziplama calisir 
         {
             return; // eger buraya girerse burdan sonrasina devam etmek demek bu
@@ -72,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void ClimbLadder()
     {
-        if (!myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             myRigidbody.gravityScale = gravitySlaceAtStart; //merdivene degmiyorsa gravity basta neyse o diyorum 
             myAnimator.SetBool("isClimbing", false);

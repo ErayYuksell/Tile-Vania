@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3500752110659074207}
   - component: {fileID: 3004917398516003528}
   - component: {fileID: 3346692323865095927}
+  - component: {fileID: 798627265781421936}
   - component: {fileID: 1692932853588362769}
   - component: {fileID: 9210053687666321540}
   m_Layer: 8
@@ -125,7 +126,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 8
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -139,6 +140,41 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!70 &3346692323865095927
 CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211243883784749643}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: d2332d9c4f2ae304fa103fcb1ba8d90b, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.02770102, y: -0.047609508}
+  m_Size: {x: 0.6000149, y: 0.904781}
+  m_Direction: 0
+--- !u!61 &798627265781421936
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -169,9 +205,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.032206535, y: -0.047609508}
-  m_Size: {x: 0.509902, y: 0.904781}
-  m_Direction: 0
+  m_Offset: {x: -0.027033567, y: -0.45732176}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.49086285, y: 0.085356474}
+  m_EdgeRadius: 0
 --- !u!114 &1692932853588362769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34196d23e0ff754f837e0820b235da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 5
-  jumpSpeed: 25
+  runSpeed: 7
+  jumpSpeed: 20
   climbSpeed: 5
