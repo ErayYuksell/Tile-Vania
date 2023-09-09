@@ -12,12 +12,15 @@ public class PlayerMovement : MonoBehaviour
     float jumpSpeed = 5f;
     [SerializeField]
     float climbSpeed = 5f;
+    [SerializeField]
+    Vector2 deathKick= new Vector2(10f,10f);
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator myAnimator;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
     float gravitySlaceAtStart;
+    bool isAlive = true;
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -30,20 +33,24 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isAlive) { return; } //eger player yasamiyorsa direkt burdan sonrasi calismayacak
         Run();
         FlipSprite();
         ClimbLadder();
+        Die();
     }
     void OnMove(InputValue value) //????
     //Klavyemde herhangi bir seye bastigimi algiliyor ve o girisi direkt olarak yakaliyor value icinde bu deger tutuluyor bir kere a ya basarsam 1 0 vectorunu moveInputa aktarmis olurum mesala 
     {
+        if (!isAlive) { return; }
         moveInput = value.Get<Vector2>();
         Debug.Log(moveInput);
     }
     void OnJump(InputValue value) //ziplamayi saglar 
     {
+        if (!isAlive) { return; }
         if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) //platformTileMap e bir layer verdik Ground platforma deyip degmedigine bu kod sayesinde alabiliyoruz 
-                                                                              //eger Ground a degiyorsa buraya girmez ve ziplama calisir 
+                                                                           //eger Ground a degiyorsa buraya girmez ve ziplama calisir 
         {
             return; // eger buraya girerse burdan sonrasina devam etmek demek bu
         }
@@ -84,6 +91,16 @@ public class PlayerMovement : MonoBehaviour
         myRigidbody.velocity = climbVelocity;
         myRigidbody.gravityScale = 0f; //merdiven ustundeyken gravity 0 liyoruz merdivende sabit kalabilsin diye yoksa gravityden dolayi asagi kayiyor 
         bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon; //merdivende tirmanmadan durursa hiz 0 olacagi icin false doner ve tirmanma animasyonu durdururuz  
-        myAnimator.SetBool("isClimbing", playerHasVerticalSpeed); 
+        myAnimator.SetBool("isClimbing", playerHasVerticalSpeed);
+    }
+    void Die()
+    {
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy","Hazards"))) // carpisma layeri 2 isimden biriyse iceri girer
+        {
+            isAlive = false; // onMove OnJump  hareket etmemi saglayan fonksiyonlarin basinda false ise o fonksiyonlari girmesini engelleyen kosul var 
+            //yani bu false oldugunda playerin tum hareketleri durur 
+            myAnimator.SetTrigger("Dying");
+            myRigidbody.velocity = deathKick; //oldugunde bir x ve y ekseninde hiz ekliyorum havaya dogru sicrayip geri dusuyor 
+        }
     }
 }
