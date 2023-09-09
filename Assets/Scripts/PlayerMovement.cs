@@ -13,7 +13,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float climbSpeed = 5f;
     [SerializeField]
-    Vector2 deathKick= new Vector2(10f,10f);
+    Vector2 deathKick = new Vector2(10f, 10f);
+    [SerializeField]
+    GameObject bullet;
+    [SerializeField]
+    Transform gun;
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     Animator myAnimator;
@@ -28,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
         gravitySlaceAtStart = myRigidbody.gravityScale;
+
     }
 
 
@@ -59,6 +64,13 @@ public class PlayerMovement : MonoBehaviour
             myRigidbody.velocity += new Vector2(0f, jumpSpeed);
         }
     }
+    void OnFire(InputValue value) //playerin gun bos objesinin bulundugu konumdan bullet ornekliyecek 
+    {
+        if (!isAlive) { return; }
+        var rotation = Quaternion.Euler(0f, 0f, -90f);
+        Instantiate(bullet, gun.transform.position, rotation);
+    }
+
     void Run()
     {
 
@@ -95,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Die()
     {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy","Hazards"))) // carpisma layeri 2 isimden biriyse iceri girer
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards"))) // carpisma layeri 2 isimden biriyse iceri girer
         {
             isAlive = false; // onMove OnJump  hareket etmemi saglayan fonksiyonlarin basinda false ise o fonksiyonlari girmesini engelleyen kosul var 
             //yani bu false oldugunda playerin tum hareketleri durur 
