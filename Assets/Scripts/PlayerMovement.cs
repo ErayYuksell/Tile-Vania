@@ -113,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
             //yani bu false oldugunda playerin tum hareketleri durur 
             myAnimator.SetTrigger("Dying");
             myRigidbody.velocity = deathKick; //oldugunde bir x ve y ekseninde hiz ekliyorum havaya dogru sicrayip geri dusuyor 
+            FindObjectOfType<GameSession>().ProcessPlayerDeath(); // player olunce gameSessiona gidicek yeterli cani varsa 1 tane azalticak yoksa bastan baslaticak oyunu gameOver yani 
         }
     }
 }
