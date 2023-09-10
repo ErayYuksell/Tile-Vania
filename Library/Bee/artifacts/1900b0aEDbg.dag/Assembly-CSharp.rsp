@@ -389,6 +389,7 @@
 "Assets/Scripts/Game Session.cs"
 "Assets/Scripts/LevelExit.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/Scene Persist.cs"
 -langversion:9.0
 
 /deterministic
